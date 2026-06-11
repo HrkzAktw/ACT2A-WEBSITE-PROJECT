@@ -1,11 +1,8 @@
 videos/1st.mp4 filter=lfs diff=lfs merge=lfs -text
 videos/2nd.mp4 filter=lfs diff=lfs merge=lfs -text
-videos/3rd,mp4 filter=lfs diff=lfs merge=lfs -text
 videos/4th.mp4 filter=lfs diff=lfs merge=lfs -text
-videos/3rd.mp4 filter=lfs diff=lfs merge=lfs -text
-videos/4.5th.mp4 filter=lfs diff=lfs merge=lfs -text
-videos/5th,mp4 filter=lfs diff=lfs merge=lfs -text
 videos/6th.mp4 filter=lfs diff=lfs merge=lfs -text
-videos./5th.mp4 filter=lfs diff=lfs merge=lfs -text
 videos/5th.mp4 filter=lfs diff=lfs merge=lfs -text
 videos/7th.mp4 filter=lfs diff=lfs merge=lfs -text
+videos/4.5th.mp4 filter=lfs diff=lfs merge=lfs -text
+videos/3rd.mp4 filter=lfs diff=lfs merge=lfs -text

@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCHALE OFFICE | Blue Archive</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <input type="radio" name="view-audio-sync" id="viewOverviewActive" hidden>
+<input type="radio" name="view-audio-sync" id="viewOtherActive" checked hidden>
+<input type="radio" name="view-audio-sync" id="viewIllustrationsActive" hidden>
+    <input type="radio" name="view-audio-sync" id="viewOverviewActive" hidden>
+    <input type="radio" name="view-audio-sync" id="viewOtherActive" checked hidden>
+
+    <!-- System Login Modal -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="login-card">
+            <div class="schale-logo-small">S.C.H.A.L.E</div>
+            <h3>SYSTEM AUTHENTICATION</h3>
+            <p>Please enter Sensei credentials to proceed.</p>
+            <input type="text" id="senseiName" placeholder="Enter Name...">
+            <button class="confirm-login" onclick="fakeLogin()">CONFIRM</button>
+        </div>
+    </div>
+
+    <!-- 🌟 UPGRADED: Wide-Screen SCHALE Split Tactical Dossier Modal -->
+    <div id="schoolModal" class="modal-overlay">
+        <div class="dossier-card">
+            <!-- Left Info & Roster Panel -->
+            <div class="dossier-left">
+                <div class="schale-logo-small" style="color: #6197e6; letter-spacing: 4px; text-align: left;">SCHALE INTELLIGENCE SYSTEM</div>
+                
+                <div class="dossier-school-header">
+                    <div class="dossier-school-logo-frame">
+                        <img id="popupSchoolLogo" src="" alt="School Crest">
+                    </div>
+                    <div class="dossier-school-text">
+                        <h3 id="popupSchoolName">School Name</h3>
+                        <p id="popupSchoolDesc">School description profile load...</p>
+                    </div>
+                </div>
+
+                <div class="dossier-roster-section">
+                    <h4>AFFILIATED OPERATIVES DIRECTORY</h4>
+                    <div id="dossierStudentGrid" class="dossier-student-grid">
+                        <!-- Dynamic student cards will inject here -->
+                    </div>
+                </div>
+
+                <button class="confirm-login" style="background: #e63946; padding: 10px 25px; box-shadow: 0 4px 12px rgba(230, 57, 70, 0.2); align-self: flex-start; margin-top: auto;" onclick="closeSchoolModal()">CLOSE DOSSIER</button>
+            </div>
+
+            <!-- Right Live Artwork Viewport Inspector -->
+            <div class="dossier-right">
+                <div class="viewport-title-tag">TACTICAL VISUAL TRANSMISSION</div>
+                <div class="viewport-artwork-container">
+                    <img id="dossierLiveArtwork" src="" alt="Student Tactical Render">
+                    <div id="dossierArtworkPlaceholder" class="artwork-placeholder">SELECT OPERATIVE CARD</div>
+                </div>
+                <div id="dossierLiveStudentName" class="viewport-student-name">- ACCESSING RECORD -</div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="sidebar">
+        <div class="bgm-control-box">
+    <div class="rin-tag-capsule-slanted">
+        <div class="rin-tag-name">BGM</div>
+        <button class="voice-play-btn" onclick="document.getElementById('bgmTrack').play()">▶</button>
+        <button class="voice-play-btn" onclick="document.getElementById('bgmTrack').pause()">⏸</button>
+        <div class="rin-tag-club" style="overflow: hidden; text-overflow: ellipsis;"></div>
+        <audio id="bgmTrack" loop>
+            <source src="Track_2_Mitsukiyo_Luminous_Memory.ogg" type="audio/ogg">
+        </audio>    
+    </div>
+</div>
+
+
+        <div class="logo">
+            <img src="pop_logo_en.png" class="sidebar-logo-img" alt="Blue Archive">
+        </div>
+        <div class="login-box">
+            <p id="loginStatus">Sensei, you must log in to participate.</p>
+            <button class="login-btn" id="sidebarLoginBtn" onclick="openLogin()">LogIn</button>
+        </div>
+    <ul class="nav-links">
+    <li class="nav-item" data-target="lobby">
+        <label for="viewOtherActive" style="cursor: pointer; display: block; width: 100%; height: 100%;">Lobby</label>
+    </li>
+    <li class="nav-item" data-target="overviewPanel">
+        <label for="viewOverviewActive" style="cursor: pointer; display: block; width: 100%; height: 100%;">Overview</label>
+    </li>
+    <li class="nav-item" data-target="collectionPanel">
+        <label for="viewOtherActive" style="cursor: pointer; display: block; width: 100%; height: 100%;">Collection</label>
+    </li>
+    <li class="nav-item illustrations-nav-btn">
+        <label for="viewIllustrationsActive" style="cursor: pointer; display: block; width: 100%; height: 100%;">Illustrations</label>
+    </li>
+</ul>
+
+<div class="social-links">
+    <div class="social-row">
+        <span class="region-label">GLOBAL</span>
+        <a href="https://www.youtube.com/@bluearchive_Global" target="_blank"><img src="youtubelogo.png" alt="YT"></a>
+        <a href="https://x.com/EN_BlueArchive" target="_blank"><img src="twitterxlogo.png" alt="X"></a>
+    </div>
+    <div class="social-row">
+        <span class="region-label">JP</span>
+        <a href="https://www.youtube.com/@BlueArchive_JP" target="_blank"><img src="youtubelogo.png" alt="YT"></a>
+        <a href="https://x.com/blue_archivejp" target="_blank"><img src="twitterxlogo.png" alt="X"></a>
+    </div>
+    <div class="social-row">
+        <span class="region-label">KR</span>
+        <a href="https://www.youtube.com/@bluearchive_kr" target="_blank"><img src="youtubelogo.png" alt="YT"></a>
+        <a href="https://x.com/KR_BlueArchive" target="_blank"><img src="twitterxlogo.png" alt="X"></a>
+    </div>
+</div>
+    </nav>
+
+    <div id="lobbyView">
+        <img src="HarunaNY_sprite.png" class="character-sprite" alt="HarunaNY">
+        <div class="overview-dialogue-window">
+            <div class="rin-tag-capsule-slanted">
+                <div class="rin-tag-name">Haruna (New Year)</div>
+                <div class="rin-tag-club">Gourmet Research Society</div>
+            </div>
+            <div class="rin-body-bubble">
+                <p id="dialogueText" class="rin-core-text">
+                    How are you, <span id="userNameDisplay">Sensei</span>? Why don't we look for a fine dining experience for the New Year?
+                </p>
+                <button class="next-btn" id="nextBtn">NEXT ❯❯</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-panel overview-panel-layout" id="overviewPanel">
+
+        <input type="radio" name="overview-stage" id="overviewStage1" checked hidden>
+        <input type="radio" name="overview-stage" id="overviewStage2" hidden>
+        <input type="radio" name="overview-stage" id="overviewStage3" hidden>
+
+        <div class="media-track-container">
+            <video class="overview-bg-asset stage1-media" autoplay loop muted playsinline>
+                <source src="sec06_bg.mp4" type="video/mp4">
+            </video>
+
+            <div class="overview-bg-asset stage2-media"></div>
+
+            <video class="overview-bg-asset stage3-media" autoplay loop muted playsinline>
+                <source src="sec07_bg.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="student-list-container">
+            <div class="student-list-header">
+                <span class="game-intro-sub">- Game Intro -</span>
+                <h1 class="student-list-title">Student List</h1>
+            </div>
+            
+            <div class="schools-scroll-grid" id="schoolsScrollGrid" tabindex="0">
+                
+                <div class="school-card" onclick="openSchoolModal('Abydos High School')">
+                    <div class="school-logo-frame"><img src="Abydos High School.png" alt="Abydos"></div>
+                    <div class="school-name-label">Abydos High School</div>
+                </div>
+
+                <div class="school-card" onclick="openSchoolModal('Gehenna Academy')">
+                    <div class="school-logo-frame"><img src="Gehenna Academy.png" alt="Gehenna"></div>
+                    <div class="school-name-label">Gehenna Academy</div>
+                </div>
+
+                <div class="school-card" onclick="openSchoolModal('Millennium Science School')">
+                    <div class="school-logo-frame"><img src="Millennium Science School.png" alt="Millennium"></div>
+                    <div class="school-name-label">Millennium Science School</div>
+                </div>
+
+                <div class="school-card" onclick="openSchoolModal('Trinity General School')">
+                    <div class="school-logo-frame"><img src="Trinity General School.png" alt="Trinity"></div>
+                    <div class="school-name-label">Trinity General School</div>
+                </div>
+
+                <div class="school-card" onclick="openSchoolModal('Hyakkiyako Alliance Academy')">
+                    <div class="school-logo-frame"><img src="Hyakkiyako Alliance Academy.png" alt="Hyakkiyako"></div>
+                    <div class="school-name-label">Hyakkiyako Alliance Academy</div>
+                </div>
+
+                <div class="school-card" onclick="openSchoolModal('Shanhaijing Senior Secondary School')">
+                    <div class="school-logo-frame"><img src="Shanhaijing Senior Secondary School.png" alt="Shanhaijing"></div>
+                    <div class="school-name-label">Shanhaijing Senior Secondary</div>
+                </div>
+
+                <div class="school-card" onclick="openSchoolModal('Red Winter Federal Academy')">
+                    <div class="school-logo-frame"><img src="Red Winter Federal Academy.png" alt="Red Winter"></div>
+                    <div class="school-name-label">Red Winter Federal Academy</div>
+                </div>
+
+                <div class="school-card" onclick="openSchoolModal('Valkyrie Police Academy')">
+                    <div class="school-logo-frame"><img src="Valkyrie Police Academy.png" alt="Valkyrie"></div>
+                    <div class="school-name-label">Valkyrie Police Academy</div>
+                </div>
+
+                <div class="school-card" onclick="openSchoolModal('Arius Branch School')">
+                    <div class="school-logo-frame"><img src="Arius Branch School.png" alt="Arius"></div>
+                    <div class="school-name-label">Arius Branch School</div>
+                </div>
+
+                <div class="school-card" onclick="openSchoolModal('SRT Special Academy')">
+                    <div class="school-logo-frame"><img src="SRT Special Academy.png" alt="SRT"></div>
+                    <div class="school-name-label">SRT Special Academy</div>
+                </div>
+
+                <div class="school-card" onclick="openSchoolModal('Kronos School of Journalism')">
+                    <div class="school-logo-frame"><img src="Kronos School of Journalism.png" alt="Kronos"></div>
+                    <div class="school-name-label">Kronos School of Journalism</div>
+                </div>
+
+                <div class="school-card" onclick="openSchoolModal('Highlander Railroad Academy')">
+                    <div class="school-logo-frame"><img src="Highlander Railroad Academy.png" alt="Highlander"></div>
+                    <div class="school-name-label">Highlander Railroad Academy</div>
+                </div>
+
+                <div class="school-card" onclick="openSchoolModal('Wild Hunt Academy of Arts')">
+                    <div class="school-logo-frame"><img src="Wild Hunt Academy of Arts.png" alt="Wild Hunt"></div>
+                    <div class="school-name-label">Wild Hunt Academy of Arts</div>
+                </div>
+
+                <div class="school-card" onclick="openSchoolModal('Odyssey Maritime School')">
+                    <div class="school-logo-frame"><img src="Odyssey Maritime School.png" alt="Odyssey"></div>
+                    <div class="school-name-label">Odyssey Maritime School</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="overview-dialogue-window">
+            <div class="rin-tag-capsule-slanted">
+                <div class="rin-tag-name">Rin</div>
+                <button class="voice-play-btn" onclick="document.getElementById('rinVoiceAsset').play()">🔊</button>
+                <div class="rin-tag-club">General Student Council</div>
+                <audio id="rinVoiceAsset" src="Rin_RaidLobby_In_1.ogg"></audio>
+            </div>
+
+            <div class="rin-body-bubble">
+                <p id="rinDialogueText" class="rin-core-text txt-stage1">
+                    Welcome, <strong>Sensei</strong>! Let me escort you through your building, the SCHALE Tower.
+                </p>
+                <p class="rin-core-text txt-stage2">
+                    Kivotos is a massive city, home to thousands of different academies. This is where you'll be working from now on.
+                </p>
+                <p class="rin-core-text txt-stage3">
+                    Sensei, there should be a name registry on your desk. Would you like to take a look?
+                </p>
+
+                <label for="overviewStage2" class="next-btn lbl-stage1">NEXT ❯❯</label>
+                <label for="overviewStage3" class="next-btn lbl-stage2">NEXT ❯❯</label>
+                <div class="dialogue-pointer-diamond lbl-stage3">✦</div>
+            </div>
+        </div>
+
+        <button class="close-panel"><label for="viewOtherActive" style="cursor: pointer;">BACK</label></button>
+    </div>
+
+    <div class="content-panel" id="collectionPanel">
+        <div class="center_wrap">
+            <div class="media-header-tag">- Media -</div>
+            <h2 class="carousel-main-title">Videos</h2>
+            <div class="top_bg2"></div>
+
+            <input type="radio" name="video-toggle" id="slide1" checked hidden>
+            <input type="radio" name="video-toggle" id="slide2" hidden>
+            <input type="radio" name="video-toggle" id="slide3" hidden>
+            <input type="radio" name="video-toggle" id="slide4" hidden>
+            <input type="radio" name="video-toggle" id="slide4_5" hidden>
+            <input type="radio" name="video-toggle" id="slide5" hidden>
+            <input type="radio" name="video-toggle" id="slide6" hidden>
+            <input type="radio" name="video-toggle" id="slide7" hidden>
+
+            <div class="movie_bn_wrap">
+                <img src="pop_logo_en.png" class="video-box-mid-logo" alt="SCHALE Accent Logo">
+                
+                <div class="controls arrow-set-1">
+                    <label for="slide7" class="prev">⟨</label>
+                    <label for="slide2" class="next">⟩</label>
+                    <div class="carousel-counter">1 / 8</div>
+                </div>
+                <div class="controls arrow-set-2">
+                    <label for="slide1" class="prev">⟨</label>
+                    <label for="slide3" class="next">⟩</label>
+                    <div class="carousel-counter">2 / 8</div>
+                </div>
+                <div class="controls arrow-set-3">
+                    <label for="slide2" class="prev">⟨</label>
+                    <label for="slide4" class="next">⟩</label>
+                    <div class="carousel-counter">3 / 8</div>
+                </div>
+                <div class="controls arrow-set-4">
+                    <label for="slide3" class="prev">⟨</label>
+                    <label for="slide4_5" class="next">⟩</label>
+                    <div class="carousel-counter">4 / 8</div>
+                </div>
+                <div class="controls arrow-set-4_5">
+                    <label for="slide4" class="prev">⟨</label>
+                    <label for="slide5" class="next">⟩</label>
+                    <div class="carousel-counter">4.5 / 8</div>
+                </div>
+                <div class="controls arrow-set-5">
+                    <label for="slide4_5" class="prev">⟨</label>
+                    <label for="slide6" class="next">⟩</label>
+                    <div class="carousel-counter">5 / 8</div>
+                </div>
+                <div class="controls arrow-set-6">
+                    <label for="slide5" class="prev">⟨</label>
+                    <label for="slide7" class="next">⟩</label>
+                    <div class="carousel-counter">6 / 8</div>
+                </div>
+                <div class="controls arrow-set-7">
+                    <label for="slide6" class="prev">⟨</label>
+                    <label for="slide1" class="next">⟩</label>
+                    <div class="carousel-counter">7 / 8</div>
+                </div>
+
+                <ul class="movie_bn">
+                    <li class="video-item-1"><video src="videos/1st.mp4" controls></video></li>
+                    <li class="video-item-2"><video src="videos/2nd.mp4" controls></video></li>
+                    <li class="video-item-3"><video src="videos/3rd.mp4" controls></video></li>
+                    <li class="video-item-4"><video src="videos/4th.mp4" controls></video></li>
+                    <li class="video-item-4_5"><video src="videos/4.5th.mp4" controls></video></li>
+                    <li class="video-item-5"><video src="videos/5th.mp4" controls></video></li>
+                    <li class="video-item-6"><video src="videos/6th.mp4" controls></video></li>
+                    <li class="video-item-7"><video src="videos/7th.mp4" controls></video></li>
+                </ul>
+            </div>
+            <button class="close-panel" onclick="this.parentElement.parentElement.classList.remove('active')">BACK</button>
+        </div>
+    </div>
+ 
+        </div>
+        <button class="close-panel"><label for="viewOtherActive" style="cursor: pointer;">BACK</label></button>
+    </div>
+</div>
+
+<div class="content-panel" id="illustrationsPanel">
+    
+    <div class="css-lightbox-group">
+        <input type="checkbox" id="img-pop-1" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-1" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(1).jpg" alt="01"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_01.JPG</div><label for="img-pop-1" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-2" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-2" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(2).jpg" alt="02"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_02.JPG</div><label for="img-pop-2" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-3" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-3" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(3).jpg" alt="03"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_03.JPG</div><label for="img-pop-3" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-4" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-4" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(4).jpg" alt="04"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_04.JPG</div><label for="img-pop-4" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-5" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-5" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(5).jpg" alt="05"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_05.JPG</div><label for="img-pop-5" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-6" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-6" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(6).jpg" alt="06"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_06.JPG</div><label for="img-pop-6" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-7" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-7" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(7).jpg" alt="07"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_07.JPG</div><label for="img-pop-7" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-8" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-8" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(8).jpg" alt="08"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_08.JPG</div><label for="img-pop-8" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-9" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-9" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(9).jpg" alt="09"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_09.JPG</div><label for="img-pop-9" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-10" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-10" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(10).jpg" alt="10"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_10.JPG</div><label for="img-pop-10" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-11" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-11" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(11).jpg" alt="11"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_11.JPG</div><label for="img-pop-11" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-12" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-12" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(12).jpg" alt="12"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_12.JPG</div><label for="img-pop-12" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-13" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-13" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(13).jpg" alt="13"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_13.JPG</div><label for="img-pop-13" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-14" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-14" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(14).jpg" alt="14"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_14.JPG</div><label for="img-pop-14" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-15" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-15" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(15).jpg" alt="15"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_15.JPG</div><label for="img-pop-15" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-16" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-16" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(16).jpg" alt="16"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_16.JPG</div><label for="img-pop-16" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-17" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-17" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(17).jpg" alt="17"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_17.JPG</div><label for="img-pop-17" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-18" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-18" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(18).jpg" alt="18"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_18.JPG</div><label for="img-pop-18" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-19" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-19" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(19).jpg" alt="19"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_19.JPG</div><label for="img-pop-19" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-20" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-20" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(20).jpg" alt="20"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_20.JPG</div><label for="img-pop-20" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-21" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-21" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(21).jpg" alt="21"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_21.JPG</div><label for="img-pop-21" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-22" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-22" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(22).jpg" alt="22"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_22.JPG</div><label for="img-pop-22" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-23" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-23" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(23).jpg" alt="23"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_23.JPG</div><label for="img-pop-23" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-24" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-24" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(24).jpg" alt="24"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_24.JPG</div><label for="img-pop-24" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-25" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-25" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(25).jpg" alt="25"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_25.JPG</div><label for="img-pop-25" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-26" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-26" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(26).jpg" alt="26"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_26.JPG</div><label for="img-pop-26" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-27" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-27" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(27).jpg" alt="27"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_27.JPG</div><label for="img-pop-27" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-28" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-28" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(28).jpg" alt="28"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_28.JPG</div><label for="img-pop-28" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-29" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-29" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(29).jpg" alt="29"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_29.JPG</div><label for="img-pop-29" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-30" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-30" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(30).jpg" alt="30"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_30.JPG</div><label for="img-pop-30" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-31" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-31" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(31).jpg" alt="31"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_31.JPG</div><label for="img-pop-31" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-32" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-32" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(32).jpg" alt="32"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_32.JPG</div><label for="img-pop-32" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-33" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-33" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(33).jpg" alt="33"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_33.JPG</div><label for="img-pop-33" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-34" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-34" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(34).jpg" alt="34"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_34.JPG</div><label for="img-pop-34" class="lightbox-close-btn">×</label></div></div>
+        <input type="checkbox" id="img-pop-35" class="lightbox-toggle" hidden>
+        <div class="lightbox-overlay"><label for="img-pop-35" class="lightbox-close-surface"></label><div class="lightbox-window"><img src="Illustrations/1%20(35).jpg" alt="35"><div class="lightbox-caption">SCHALE ARCHIVE // DATA_FILE_35.JPG</div><label for="img-pop-35" class="lightbox-close-btn">×</label></div></div>
+    </div>
+
+    <div class="center_wrap" style="padding-bottom: 20px; height: 100%; display: flex; flex-direction: column;">
+        
+        <div style="flex-shrink: 0; margin-bottom: 25px; border-left: 4px solid #00adef; padding-left: 15px;">
+            <div class="media-header-tag" style="color: #00adef; font-family: monospace; font-weight: bold; letter-spacing: 2px;">// AUDIT LOG: VISUAL_ASSETS_RECON</div>
+            <h2 class="carousel-main-title" style="margin-bottom: 3px; font-size: 24px; letter-spacing: 1px;">TACTICAL MEMORIES ARCHIVE</h2>
+            <p style="font-size: 10px; color: #4f709c; letter-spacing: 1px; font-family: monospace;">STATUS: LINK ESTABLISHED // ACCESS: AUTHORIZED SENSEI ONLY</p>
+        </div>
+        
+        <div class="illustrations-horizontal-track" tabindex="0">
+            
+            <div class="illustration-gallery-card">
+                <label for="img-pop-1" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(1).jpg" alt="01" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.01</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-2" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(2).jpg" alt="02" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.02</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-3" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(3).jpg" alt="03" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.03</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-4" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(4).jpg" alt="04" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.04</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-5" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(5).jpg" alt="05" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.05</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-6" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(6).jpg" alt="06" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.06</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-7" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(7).jpg" alt="07" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.07</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-8" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(8).jpg" alt="08" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.08</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-9" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(9).jpg" alt="09" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.09</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-10" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(10).jpg" alt="10" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.10</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-11" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(11).jpg" alt="11" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.11</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-12" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(12).jpg" alt="12" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.12</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-13" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(13).jpg" alt="13" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.13</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-14" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(14).jpg" alt="14" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.14</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-15" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(15).jpg" alt="15" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.15</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-16" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(16).jpg" alt="16" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.16</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-17" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(17).jpg" alt="17" loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.17</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-18" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(18).jpg" alt="18" loading="lazy""></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.18</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-19" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(19).jpg" alt="19"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.19</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-20" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(20).jpg" alt="20"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.20</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-21" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(21).jpg" alt="21"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.21</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-22" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(22).jpg" alt="22"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.22</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-23" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(23).jpg" alt="23"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.23</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-24" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(24).jpg" alt="24"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.24</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-25" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(25).jpg" alt="25"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.25</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-26" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(26).jpg" alt="26"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.26</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-27" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(27).jpg" alt="27"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.27</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-28" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(28).jpg" alt="28"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.28</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-29" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(29).jpg" alt="29"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.29</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-30" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(30).jpg" alt="30"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.30</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-31" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(31).jpg" alt="31"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.31</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-32" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(32).jpg" alt="32"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.32</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-33" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(33).jpg" alt="33"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.33</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-34" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(34).jpg" alt="34"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.34</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+            <div class="illustration-gallery-card">
+                <label for="img-pop-35" class="card-trigger-surface">
+                    <div class="illustration-frame"><img src="Illustrations/1%20(35).jpg" alt="35"  loading="lazy"></div>
+                </label>
+                <div class="illustration-footer">
+                    <span class="file-id">INDEX // NO.35</span>
+                    <span class="file-status">CLASSIFIED</span>
+                </div>
+            </div>
+
+        </div>
+        
+        <div style="flex-shrink: 0; margin-top: auto; padding-top: 10px;">
+            <button class="close-panel" style="position: static; transform: none; margin: 0 auto;"><label for="viewOtherActive" style="cursor: pointer; display: block; padding: 0 25px; font-family: monospace; letter-spacing: 1px;">RETURN TO COMMAND CENTER</label></button>
+        </div>
+    </div>
+</div>
+
+    <div class="footer">© NEXON & Yostar</div>
+
+    <script>
+        const schoolDatabase = {
+            'Abydos High School': {
+                logo: 'Abydos High School.png',
+                desc: 'An academy currently battling extreme desertification environmental shifts and financial debts, managed tightly by its remaining, dedicated student council taskforce.',
+                students: [
+                    { name: 'Hoshino', icon: 'Student Images/Hoshino.png', full: 'Student Images/Hoshino_00.png' },
+                    { name: 'Nonomi', icon: 'Student Images/Nonomi.png', full: 'Student Images/Nonomi_00.png' },
+                    { name: 'Shiroko', icon: 'Student Images/Shiroko.png', full: 'Student Images/Shiroko_00.png' }
+                ]
+            },
+            'Gehenna Academy': {
+                logo: 'Gehenna Academy.png',
+                desc: 'Known across Kivotos for its immense scale, absolute chaotic freedom, and continuous friction between the Prefect Team and volatile clubs like the Gourmet Research Society.',
+                students: [
+                    { name: 'Hina', icon: 'Student Images/Hina.png', full: 'Student Images/Hina_00.png' },
+                    { name: 'Kayoko', icon: 'Student Images/Kayoko.png', full: 'Student Images/Kayoko_00.png' },
+                    { name: 'Sena', icon: 'Student Images/Sena.png', full: 'Student Images/Sena_00.png' }
+                ]
+            },
+            'Millennium Science School': {
+                logo: 'Millennium Science School.png',
+                desc: 'A premier institution specialized in cutting-edge technology, mechanical engineering, and mathematical calculations, where logic and empirical truth guide student operations.',
+                students: [
+                    { name: 'Arisu', icon: 'Student Images/Arisu.png', full: 'Student Images/Arisu_00.png' },
+                    { name: 'Himari', icon: 'Student Images/Himari.png', full: 'Student Images/Himari_00.png' },
+                    { name: 'Yuuka', icon: 'Student Images/Yuuka.png', full: 'Student Images/Yuuka_00.png' }
+                ]
+            },
+            'Trinity General School': {
+                logo: 'Trinity General School.png',
+                desc: 'A highly prestigious, historic academy composed of several elegant and noble student factions, holding traditional values and massive political power in Kivotos.',
+                students: [
+                    { name: 'Mine', icon: 'Student Images/Mine.png', full: 'Student Images/Mine_00.png' },
+                    { name: 'Nagisa', icon: 'Student Images/Nagisa.png', full: 'Student Images/Nagisa_00.png' },
+                    { name: 'Sakurako', icon: 'Student Images/Sakurako.png', full: 'Student Images/Sakurako_00.png' }
+                ]
+            },
+            'Hyakkiyako Alliance Academy': {
+                logo: 'Hyakkiyako Alliance Academy.png',
+                desc: 'A beautifully historical, cultural academy deeply focused on tourism, local business alliances, traditional customs, and lively seasonal festivals.',
+                students: [
+                    { name: 'Izuna', icon: 'Student Images/Izuna.png', full: 'Student Images/Izuna_00.png' },
+                    { name: 'Nagusa', icon: 'Student Images/Nagusa.png', full: 'Student Images/Nagusa_diorama_00.png' },
+                    { name: 'Niya', icon: 'Student Images/Niya.png', full: 'Student Images/Niya_00.png' }
+                ]
+            },
+            'Shanhaijing Senior Secondary School': {
+                logo: 'Shanhaijing Senior Secondary School.png',
+                desc: 'An influential academy highly centered around traditional commerce, deep-rooted culinary traditions, internal business organizations, and financial security.',
+                students: [
+                    { name: 'Kisaki', icon: 'Student Images/Kisaki.png', full: 'Student Images/Kisaki_00.png' },
+                    { name: 'Rumi', icon: 'Student Images/Rumi.png', full: 'Student Images/Rumi_00.png' },
+                    { name: 'Shun', icon: 'Student Images/Shun.png', full: 'Student Images/Shun_00.png' }
+                ]
+            },
+            'Red Winter Federal Academy': {
+                logo: 'Red Winter Federal Academy.png',
+                desc: 'A massive academy situated in a freezing, snowy sector, experiencing near-daily comical student political revolutions against its supreme leader.',
+                students: [
+                    { name: 'Cherino', icon: 'Student Images/Cherino.png', full: 'Student Images/Cherino_00.png' },
+                    { name: 'Minori', icon: 'Student Images/Minori.png', full: 'Student Images/Minori_00.png' },
+                    { name: 'Takane', icon: 'Student Images/Takane.png', full: 'Student Images/Takane_00.png' }
+                ]
+            },
+            'Valkyrie Police Academy': {
+                logo: 'Valkyrie Police Academy.png',
+                desc: 'The main public safety law enforcement academy across the regions, tasked with municipal patrolling, crowd control, and asset tracking.',
+                students: [
+                    { name: 'Kanna', icon: 'Student Images/Kanna.png', full: 'Student Images/Kanna_00.png' },
+                    { name: 'Kirino', icon: 'Student Images/Kirino.png', full: 'Student Images/Kirino_00.png' },
+                    { name: 'Konoka', icon: 'Student Images/Konoka.png', full: 'Student Images/Konoka_00.png' }
+                ]
+            },
+            'Arius Branch School': {
+                logo: 'Arius Branch School.png',
+                desc: 'An isolated, secretive, and battle-hardened school shrouded in historic mystery, carrying an intense legacy of strict doctrines and survival training.',
+                students: [
+                    { name: 'Subaru', icon: 'Student Images/Subaru.png', full: 'Student Images/Subaru_00.png' },
+                    { name: 'Saori', icon: 'Student Images/Saori.png', full: 'Student Images/Saori_00.png' },
+                    { name: 'Misaki', icon: 'Student Images/Misaki.png', full: 'Student Images/Misaki_00.png' }
+                ]
+            },
+            'SRT Special Academy': {
+                logo: 'SRT Special Academy.png',
+                desc: 'An elite, specialized military tactical response group answerable directly to the General Student Council President for top-priority strategic crises.',
+                students: [
+                    { name: 'Miyako', icon: 'Student Images/Miyako.png', full: 'Student Images/Miyako_00.png' },
+                    { name: 'Niko', icon: 'Student Images/Niko.png', full: 'Student Images/Niko_00.png' },
+                    { name: 'Saki', icon: 'Student Images/Saki.png', full: 'Student Images/Saki_00.png' }
+                ]
+            },
+            'Kronos School of Journalism': {
+                logo: 'Kronos School of Journalism.png',
+                desc: 'The primary media and information distribution network hub, keeping a watchful, recording eye on all political affairs, battles, and school alerts.',
+                students: [
+                    { name: 'Mai', icon: 'Student Images/Mai_Icon.png', full: 'Student Images/Mai_00.png' }
+                ]   
+            },
+            'Highlander Railroad Academy': {
+                logo: 'Highlander Railroad Academy.png',
+                desc: 'A transport logistics school specialized in complex train scheduling, track management, rail security, and cross-district transport.',
+                students: [
+                    { name: 'Aoba', icon: 'Student Images/Aoba.png', full: 'Student Images/Aoba_00.png' },
+                    { name: 'Hikari', icon: 'Student Images/Hikari.png', full: 'Student Images/Hikari_00.png' },
+                    { name: 'Nozomi', icon: 'Student Images/Nozomi.png', full: 'Student Images/Nozomi_00.png' }
+                ]
+            },
+            'Wild Hunt Academy of Arts': {
+                logo: 'Wild Hunt Academy of Arts.png',
+                desc: 'A culturally enriched educational institute prioritizing high arts, fine music composition, theater craft, and aesthetic creation.',
+                students: [
+                    { name: 'Eri', icon: 'Student Images/Eri.png', full: 'Student Images/Eri_00.png' },
+                    { name: 'Kano', icon: 'Student Images/Kano.png', full: 'Student Images/Kano_00.png' }
+                ]
+            },
+            'Odyssey Maritime School': {
+                logo: 'Odyssey Maritime School.png',
+                desc: 'A coastal school specializing in deep-sea research navigation, oceanic transport lanes, harbor logistics, and maritime safety guidelines.',
+                students: []
+            }
+        };
+
+        function openLogin() { 
+            document.getElementById('loginModal').style.display = 'flex'; 
+        }
+
+        function fakeLogin() {
+            const nameInput = document.getElementById('senseiName').value.trim();
+            const finalName = nameInput !== "" ? nameInput + "-sensei" : "Sensei";
+            
+            document.getElementById('loginStatus').innerText = `Welcome, ${finalName}!`;
+            document.getElementById('sidebarLoginBtn').style.display = 'none';
+            
+            document.getElementById('dialogueText').innerHTML = `How are you, <strong>${finalName}</strong>? Why don't we look for a fine dining experience for the New Year?`;
+            document.getElementById('rinDialogueText').innerHTML = `Welcome, <strong>${finalName}</strong>! Let me escort you through your building, the SCHALE Tower.`;
+            
+            const loginVoice = new Audio('Haruna_(New_Year)_LogIn_2.ogg');
+            loginVoice.volume = 0.6;
+            loginVoice.play().catch(err => console.log("Audio deferred:", err));
+
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        function openSchoolModal(schoolName) {
+            const data = schoolDatabase[schoolName];
+            if (!data) return;
+
+            document.getElementById('popupSchoolName').innerText = schoolName;
+            document.getElementById('popupSchoolLogo').src = data.logo;
+            document.getElementById('popupSchoolDesc').innerText = data.desc;
+
+            const grid = document.getElementById('dossierStudentGrid');
+            grid.innerHTML = '';
+            
+            const liveArtwork = document.getElementById('dossierLiveArtwork');
+            const placeholder = document.getElementById('dossierArtworkPlaceholder');
+            const liveName = document.getElementById('dossierLiveStudentName');
+            
+            liveArtwork.style.display = 'none';
+            placeholder.style.display = 'flex';
+            liveName.innerText = '- ACCESSING RECORD -';
+
+            if (data.students.length === 0) {
+                grid.innerHTML = `<div class="dossier-empty-notice">No tactical profiles available in current sector database.</div>`;
+            } else {
+                data.students.forEach(student => {
+                    const card = document.createElement('div');
+                    card.className = 'dossier-mini-card';
+                    card.innerHTML = `
+                        <div class="dossier-mini-avatar-frame">
+                            <img src="${student.icon}" alt="${student.name}">
+                        </div>
+                        <div class="dossier-mini-name">${student.name}</div>
+                    `;
+
+                    const inspect = () => {
+                        document.querySelectorAll('.dossier-mini-card').forEach(c => c.classList.remove('selected'));
+                        card.classList.add('selected');
+                        placeholder.style.display = 'none';
+                        liveArtwork.src = student.full;
+                        liveArtwork.style.display = 'block';
+                        liveName.innerText = student.name.toUpperCase();
+                    };
+
+                    card.addEventListener('click', inspect);
+                    card.addEventListener('mouseenter', inspect);
+                    grid.appendChild(card);
+                });
+            }
+
+            document.getElementById('schoolModal').style.display = 'flex';
+        }
+
+        function closeSchoolModal() {
+            document.getElementById('schoolModal').style.display = 'none';
+        }
+
+        const navItems = document.querySelectorAll('.nav-item');
+        const panels = document.querySelectorAll('.content-panel');
+        const lobby = document.getElementById('lobbyView');
+
+        function switchView(targetId) {
+            panels.forEach(p => p.classList.remove('active'));
+            lobby.style.display = 'none';
+            if (targetId === 'lobby') {
+                lobby.style.display = 'block';
+                document.getElementById('overviewStage1').checked = true;
+            } else {
+                document.getElementById(targetId).classList.add('active');
+                if(targetId === 'overviewPanel' && document.getElementById('overviewStage3').checked) {
+                    setTimeout(() => document.getElementById('schoolsScrollGrid').focus(), 100);
+                }
+            }
+        }
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                switchView(item.getAttribute('data-target'));
+            });
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            navItems.forEach(i => i.classList.remove('active'));
+            document.querySelector('[data-target="collectionPanel"]').classList.add('active');
+            switchView('collectionPanel');
+        });
+
+        document.querySelectorAll('.close-panel').forEach(btn => {
+            btn.addEventListener('click', () => {
+                navItems.forEach(i => i.classList.remove('active'));
+                document.querySelector('[data-target="lobby"]').classList.add('active');
+                switchView('lobby');
+            });
+        });
+
+        const grid = document.getElementById('schoolsScrollGrid');
+        
+        grid.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            grid.scrollLeft += e.deltaY * 1.2;
+        }, { passive: false });
+
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        grid.addEventListener('mousedown', (e) => {
+            isDown = true;
+            grid.classList.add('dragging-active');
+            startX = e.pageX - grid.offsetLeft;
+            scrollLeft = grid.scrollLeft;
+        });
+
+        grid.addEventListener('mouseleave', () => {
+            isDown = false;
+            grid.classList.remove('dragging-active');
+        });
+
+        grid.addEventListener('mouseup', () => {
+            isDown = false;
+            grid.classList.remove('dragging-active');
+        });
+
+        grid.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - grid.offsetLeft;
+            const walk = (x - startX) * 2;
+            grid.scrollLeft = scrollLeft - walk;
+        });
+
+        document.querySelectorAll('label[for="overviewStage3"]').forEach(lbl => {
+            lbl.addEventListener('click', () => {
+                setTimeout(() => grid.focus(), 150);
+            });
+        });
+    </script>
+</body>
+</html>
